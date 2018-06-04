@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <head>
+        <!-- Plotly.js -->
+        <script type="text/javascript" src="plots.json"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+      <style>
+      .plotlyPlots{
+        height: 600px;
+      }
+      h1 {
+        text-align: center;
+      }
+      </style>
+      </head>
+      <body>
+        <h1>HAL ERP Marketing Analytics</h1>
+          <div id="signupTrend" class="plotlyPlots"></div>
+          <div id="signupMonthSource" class="plotlyPlots"></div>
+        <div id="sourceVerified" class="plotlyPlots"></div>
+        <div id="loginSuccess" class="plotlyPlots"></div>
+        <div id="signupPaid" class="plotlyPlots"></div>
+        <script>
+          fetch('plots.json')
+  .then(resp => resp.json())
+  .then((json) => {
+    data = JSON.parse(json);
+    plotlyConfig = {'displayModeBar': false,
+        'showLink': false,
+        'scrollZoom': false,
+        'editable': false
+       }
+    for (let key in data) {
+      data[key] = JSON.parse(data[key])
+      Plotly.newPlot(key,data[key].data, data[key].layout,plotlyConfig);
+    }
+    return data;
+  });
+
+
+        </script>
+      </body>
+</html>
